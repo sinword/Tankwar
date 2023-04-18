@@ -18,6 +18,7 @@
 		13523B1029D95F30007CBC9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13523B0E29D95F30007CBC9D /* LaunchScreen.storyboard */; };
 		13523B1729D96068007CBC9D /* menuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13523B1629D96068007CBC9D /* menuScene.swift */; };
 		13523B1929D9723E007CBC9D /* mainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13523B1829D9723E007CBC9D /* mainScene.swift */; };
+		13F2668D29ED3B060023FBAE /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F2668C29ED3B060023FBAE /* AnalogJoystick.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		13523B0F29D95F30007CBC9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13523B1629D96068007CBC9D /* menuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuScene.swift; sourceTree = "<group>"; };
 		13523B1829D9723E007CBC9D /* mainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainScene.swift; sourceTree = "<group>"; };
+		13F2668C29ED3B060023FBAE /* AnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				13523B0E29D95F30007CBC9D /* LaunchScreen.storyboard */,
 				13523B1629D96068007CBC9D /* menuScene.swift */,
 				13523B1829D9723E007CBC9D /* mainScene.swift */,
+				13F2668C29ED3B060023FBAE /* AnalogJoystick.swift */,
 			);
 			path = tankWar;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				130CC57829E925EA00A60E0B /* MapContainer.swift in Sources */,
+				13F2668D29ED3B060023FBAE /* AnalogJoystick.swift in Sources */,
 				13523B1729D96068007CBC9D /* menuScene.swift in Sources */,
 				13523B1929D9723E007CBC9D /* mainScene.swift in Sources */,
 				130CC57C29E9409700A60E0B /* Tank.swift in Sources */,

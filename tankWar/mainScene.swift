@@ -38,18 +38,39 @@ class mainScene: SKScene {
         p1tank.position = CGPoint(x: self.frame.midX, y: self.frame.maxY + self.frame.midY / 3 - self.frame.midY)
         playersTank.append(p1tank)
         
+        let p1Stick = AnalogJoystick(diameter: 50, colors: (UIColor.blue, UIColor.black))
+        p1Stick.position = CGPoint(x: self.frame.minX + self.frame.midX / 2, y: self.frame.maxY - self.frame.midY / 3)
+        
         let p2tank = Tank()
         p2tank.setName(name: "p2")
         p2tank.position = CGPoint(x: self.frame.midX, y: self.frame.minY - self.frame.midY / 3 + self.frame.midY)
-        p2tank.zRotation = 2
+        p2tank.zRotation = .pi
         playersTank.append(p2tank)
         
+        let p2Stick = AnalogJoystick(diameter: 50, colors: (UIColor.red, UIColor.black))
+        p2Stick.position = CGPoint(x: self.frame.midX + self.frame.midX / 2, y: self.frame.minY + self.frame.midY / 3)
         
-        
+        self.addChild(p1Stick)
+        self.addChild(p2Stick)
         self.addChild(mainbkg)
         self.addChild(p1tank)
         self.addChild(p2tank)
+        
+        p1Stick.trackingHandler = { [unowned self] data in
+            var pos = p1tank.position
+            pos.x = pos.x + data.velocity.x * 0.075
+            pos.y = pos.y + data.velocity.y * 0.075
+            p1tank.zRotation = .pi + data.angular
+            p1tank.position = pos
+        }
+        p2Stick.trackingHandler = { [unowned self] data in
+            var pos = p2tank.position
+            pos.x = pos.x + data.velocity.x * 0.075
+            pos.y = pos.y + data.velocity.y * 0.075
+            p2tank.zRotation = .pi + data.angular
+            p2tank.position = pos
+        }
     }
     
-    
+   
 }

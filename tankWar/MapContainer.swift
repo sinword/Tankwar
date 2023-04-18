@@ -57,6 +57,11 @@ class MapContainer: SKNode {
                 object.position = CGPoint(x: CGFloat(x), y: CGFloat(y))
                 object.index = i * 11 + j
                 object.zPosition = 0
+                object.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width , height: width ))
+                object.physicsBody?.affectedByGravity = false
+                object.physicsBody?.isDynamic = false
+                object.zPosition = 1
+                //object.physicsBody?.restitution = 0.75
                 addChild(object)
                 temp.append(object)
             }

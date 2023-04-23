@@ -49,7 +49,10 @@ class mainScene: SKScene {
         p2tank.fireButton.position = CGPoint(x: self.frame.midX - self.frame.midX / 2, y: self.frame.minY + self.frame.midY / 3)
         p2tank.abilityButton.position = CGPoint(x: self.frame.midX, y: self.frame.minY + self.frame.midY / 3)
         
-
+        
+        let cannon = SKSpriteNode(texture: SKTexture(imageNamed: "cannon ball"))
+        
+        //應該可以優化
         self.addChild(mainbkg)
         self.addChild(p1tank)
         self.addChild(p2tank)

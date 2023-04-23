@@ -18,7 +18,8 @@
 		13523B1029D95F30007CBC9D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13523B0E29D95F30007CBC9D /* LaunchScreen.storyboard */; };
 		13523B1729D96068007CBC9D /* menuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13523B1629D96068007CBC9D /* menuScene.swift */; };
 		13523B1929D9723E007CBC9D /* mainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13523B1829D9723E007CBC9D /* mainScene.swift */; };
-		13C731AA29F578B4003B68F1 /* attackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C731A929F578B4003B68F1 /* attackButton.swift */; };
+		13C731AC29F57FDB003B68F1 /* CannonBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C731AB29F57FDB003B68F1 /* CannonBall.swift */; };
+		13C731AE29F57FE8003B68F1 /* AttackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C731AD29F57FE8003B68F1 /* AttackButton.swift */; };
 		13F2668D29ED3B060023FBAE /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F2668C29ED3B060023FBAE /* AnalogJoystick.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,7 +36,8 @@
 		13523B0F29D95F30007CBC9D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13523B1629D96068007CBC9D /* menuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menuScene.swift; sourceTree = "<group>"; };
 		13523B1829D9723E007CBC9D /* mainScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mainScene.swift; sourceTree = "<group>"; };
-		13C731A929F578B4003B68F1 /* attackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = attackButton.swift; sourceTree = "<group>"; };
+		13C731AB29F57FDB003B68F1 /* CannonBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CannonBall.swift; sourceTree = "<group>"; };
+		13C731AD29F57FE8003B68F1 /* AttackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackButton.swift; sourceTree = "<group>"; };
 		13F2668C29ED3B060023FBAE /* AnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,7 +83,8 @@
 				13523B1629D96068007CBC9D /* menuScene.swift */,
 				13523B1829D9723E007CBC9D /* mainScene.swift */,
 				13F2668C29ED3B060023FBAE /* AnalogJoystick.swift */,
-				13C731A929F578B4003B68F1 /* attackButton.swift */,
+				13C731AB29F57FDB003B68F1 /* CannonBall.swift */,
+				13C731AD29F57FE8003B68F1 /* AttackButton.swift */,
 			);
 			path = tankWar;
 			sourceTree = "<group>";
@@ -161,9 +164,10 @@
 				130CC57829E925EA00A60E0B /* MapContainer.swift in Sources */,
 				13F2668D29ED3B060023FBAE /* AnalogJoystick.swift in Sources */,
 				13523B1729D96068007CBC9D /* menuScene.swift in Sources */,
+				13C731AC29F57FDB003B68F1 /* CannonBall.swift in Sources */,
 				13523B1929D9723E007CBC9D /* mainScene.swift in Sources */,
-				13C731AA29F578B4003B68F1 /* attackButton.swift in Sources */,
 				130CC57C29E9409700A60E0B /* Tank.swift in Sources */,
+				13C731AE29F57FE8003B68F1 /* AttackButton.swift in Sources */,
 				130CC57629E9247D00A60E0B /* MapObject.swift in Sources */,
 				13523B0829D95F2F007CBC9D /* GameViewController.swift in Sources */,
 				13523B0029D95F2E007CBC9D /* AppDelegate.swift in Sources */,

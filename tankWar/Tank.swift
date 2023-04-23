@@ -13,6 +13,7 @@ class Tank: SKSpriteNode {
     var myStick = AnalogJoystick(diameter: 50, colors: (UIColor.blue, UIColor.black))
     var fireButton: attackButton
     var abilityButton: attackButton
+    var lifePoint = 10
     
     init(name: String){
         let texture: SKTexture

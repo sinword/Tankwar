@@ -32,12 +32,14 @@ class MapObject: SKSpriteNode {
         switch myType {
             case .Wall:
                 texture = SKTexture(imageNamed: "wall")
+                self.canRebound = true
             case .Brick:
                 texture = SKTexture(imageNamed: "brick")
-                self.canRebound = true
+                self.durability = 3
+                self.canBreak = true
             case .Box:
                 texture = SKTexture(imageNamed: "box")
-                self.durability = 3
+                self.durability = 1
                 self.canBreak = true
             case .River:
                 texture = SKTexture(imageNamed: "river")

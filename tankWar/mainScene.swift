@@ -33,44 +33,53 @@ class mainScene: SKScene {
         mainbkg.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         mainbkg.zPosition = -1
         
-        let p1tank = Tank()
-        p1tank.setName(name: "p1")
+        let p1tank = Tank(name: "p1")
         p1tank.position = CGPoint(x: self.frame.midX, y: self.frame.maxY + self.frame.midY / 3 - self.frame.midY)
+        p1tank.myStick.position = CGPoint(x: self.frame.minX + self.frame.midX / 2, y: self.frame.maxY - self.frame.midY / 3)
         playersTank.append(p1tank)
         
-        let p1Stick = AnalogJoystick(diameter: 50, colors: (UIColor.blue, UIColor.black))
-        p1Stick.position = CGPoint(x: self.frame.minX + self.frame.midX / 2, y: self.frame.maxY - self.frame.midY / 3)
-        
-        let p2tank = Tank()
-        p2tank.setName(name: "p2")
+        let p2tank = Tank(name: "p2")
         p2tank.position = CGPoint(x: self.frame.midX, y: self.frame.minY - self.frame.midY / 3 + self.frame.midY)
-        p2tank.zRotation = .pi
+        p2tank.myStick.position = CGPoint(x: self.frame.midX + self.frame.midX / 2, y: self.frame.minY + self.frame.midY / 3)
         playersTank.append(p2tank)
         
-        let p2Stick = AnalogJoystick(diameter: 50, colors: (UIColor.red, UIColor.black))
-        p2Stick.position = CGPoint(x: self.frame.midX + self.frame.midX / 2, y: self.frame.minY + self.frame.midY / 3)
+        p1tank.fireButton.position = CGPoint(x: self.frame.midX + self.frame.midX / 2, y: self.frame.maxY - self.frame.midY / 3)
+        p1tank.abilityButton.position = CGPoint(x: self.frame.midX, y: self.frame.maxY - self.frame.midY / 3)
         
-        self.addChild(p1Stick)
-        self.addChild(p2Stick)
+        p2tank.fireButton.position = CGPoint(x: self.frame.midX - self.frame.midX / 2, y: self.frame.minY + self.frame.midY / 3)
+        p2tank.abilityButton.position = CGPoint(x: self.frame.midX, y: self.frame.minY + self.frame.midY / 3)
+        
+
         self.addChild(mainbkg)
         self.addChild(p1tank)
         self.addChild(p2tank)
-        
-        p1Stick.trackingHandler = { [unowned self] data in
-            var pos = p1tank.position
-            pos.x = pos.x + data.velocity.x * 0.075
-            pos.y = pos.y + data.velocity.y * 0.075
-            p1tank.zRotation = .pi + data.angular
-            p1tank.position = pos
-        }
-        p2Stick.trackingHandler = { [unowned self] data in
-            var pos = p2tank.position
-            pos.x = pos.x + data.velocity.x * 0.075
-            pos.y = pos.y + data.velocity.y * 0.075
-            p2tank.zRotation = .pi + data.angular
-            p2tank.position = pos
-        }
+        self.addChild(p1tank.myStick)
+        self.addChild(p2tank.myStick)
+        self.addChild(p1tank.fireButton)
+        self.addChild(p1tank.abilityButton)
+        self.addChild(p2tank.fireButton)
+        self.addChild(p2tank.abilityButton)
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first!
+        let posInScene = touch.location(in: self)
+        let touchedNode = self.nodes(at: posInScene).first!
     
-   
+        if let name = touchedNode.name{
+            if name == "1 fire"{
+                print("p1 fire")
+            }
+            else if name == "1 ability"{
+                print("p1 ability")
+            }
+            else if name == "2 fire"{
+                print("p2 fire")
+            }
+            else if name == "2 ability"{
+                print("p2 ability")
+            }
+        }
+        
+        super.touchesBegan(touches, with: event)
+    }
 }

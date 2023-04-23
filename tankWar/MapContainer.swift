@@ -9,12 +9,6 @@ import UIKit
 import SpriteKit
 
 class MapContainer: SKNode {
-    let box = SKTexture(imageNamed: "box")
-    let brick = SKTexture(imageNamed: "brick")
-    let brush = SKTexture(imageNamed: "brush")
-    let wall = SKTexture(imageNamed: "wall")
-    let river = SKTexture(imageNamed: "river")
-    let floor = SKTexture(imageNamed: "floor")
     var map = [[MapObject]]()
     
     func onInit(mapName: String){
@@ -34,34 +28,29 @@ class MapContainer: SKNode {
             var temp = [MapObject]()
             for j in 0..<11{
                 let object: MapObject
-                let str_idx = content.index(content.startIndex, offsetBy: i * 11 + j)
+                let idx = i * 11 + j
+                let str_idx = content.index(content.startIndex, offsetBy: idx)
                 switch(content[str_idx]){
                 case "w":
-                    object = MapObject(texture: brush)
+                    object = MapObject(type: objectType.Brush ,index: idx)
                 case "~":
-                    object = MapObject(texture: river)
+                    object = MapObject(type: objectType.River ,index: idx)
                 case "=":
-                    object = MapObject(texture: wall)
+                    object = MapObject(type: objectType.Wall ,index: idx)
                 case "#":
-                    object = MapObject(texture: box)
+                    object = MapObject(type: objectType.Box ,index: idx)
                 case "@":
-                    object = MapObject(texture: brick)
+                    object = MapObject(type: objectType.Brick ,index: idx)
                 default:
-                    object = MapObject()
+                    object = MapObject(type: objectType.Empty,index: idx)
                 }
+                
                 //For position cal
-                let width = 35
-                object.size = CGSize(width: width, height: width)
+                let width = Int(object.mySize.width)
                 let x = j * width - (10 * width) / 2
                 let y = i * width - (10 * width) / 2
                 object.position = CGPoint(x: CGFloat(x), y: CGFloat(y))
-                object.index = i * 11 + j
-                object.zPosition = 0
-                object.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width , height: width ))
-                object.physicsBody?.affectedByGravity = false
-                object.physicsBody?.isDynamic = false
-                object.zPosition = 1
-                //object.physicsBody?.restitution = 0.75
+                
                 addChild(object)
                 temp.append(object)
             }

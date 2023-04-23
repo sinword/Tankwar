@@ -4,7 +4,7 @@
 //
 //  Created by Dmitriy Mitrophanskiy on 28.09.14.
 //
-//
+//  Ref: https://github.com/MitrofD/TLAnalogJoystick
 import SpriteKit
 
 //MARK: AnalogJoystickData

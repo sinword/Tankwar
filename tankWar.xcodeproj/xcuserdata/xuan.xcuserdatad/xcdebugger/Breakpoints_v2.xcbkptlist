@@ -14,8 +14,8 @@
             filePath = "tankWar/Tank.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "init?(coder:)"
             landmarkType = "7">
          </BreakpointContent>

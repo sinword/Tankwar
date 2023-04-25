@@ -14,7 +14,7 @@ class menuScene: SKScene{
         createScene()
     }
     
-    func createScene(){
+    func createScene() {
         let bkg = SKSpriteNode(imageNamed: "menuBkg")
         bkg.size.width = self.size.width
         bkg.size.height = self.size.height

@@ -12,14 +12,14 @@ class attackButton: SKSpriteNode {
     let mySize = CGSize(width: 40, height: 40)
     var owner: Int
     
-    init(name: String, owner: Int){
+    init(name: String, owner: Int) {
         let texture: SKTexture
         let newName: String
-        if (name == "ability"){
+        if (name == "ability") {
             texture = SKTexture(imageNamed: "ability")
             newName = "\(owner) ability"
         }
-        else{
+        else {
             texture = SKTexture(imageNamed: "fire")
             newName = "\(owner) fire"
         }
@@ -32,4 +32,6 @@ class attackButton: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+   
 }

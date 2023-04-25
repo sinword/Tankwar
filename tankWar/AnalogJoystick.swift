@@ -5,6 +5,7 @@
 //  Created by Dmitriy Mitrophanskiy on 28.09.14.
 //
 //  Ref: https://github.com/MitrofD/TLAnalogJoystick
+
 import SpriteKit
 
 //MARK: AnalogJoystickData
@@ -100,7 +101,8 @@ open class AnalogJoystickComponent: SKSpriteNode {
         
         if let img = image {
             img.draw(in: CGRect(origin: CGPoint.zero, size: needSize), blendMode: .normal, alpha: 1)
-        } else {
+        }
+        else {
             color.set()
             rectPath.fill()
         }
@@ -203,9 +205,12 @@ open class AnalogJoystick: SKNode {
         }
     }
     
+    func getVelocity()->CGPoint {
+        return data.velocity
+    }
+    
     //MARK: - Overrides
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         if let touch = touches.first, stick == atPoint(touch.location(in: self)) {
             tracking = true
             beginHandler?()
@@ -213,7 +218,6 @@ open class AnalogJoystick: SKNode {
     }
     
     open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         for touch: AnyObject in touches {
             let location = touch.location(in: self)
             

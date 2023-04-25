@@ -8,7 +8,7 @@
 import UIKit
 import SpriteKit
 
-enum objectType : Int{
+enum objectType : Int {
     case Wall = 0
     case Brick = 1
     case Box = 2
@@ -25,7 +25,7 @@ class MapObject: SKSpriteNode {
     var canRebound = false
     var canBreak = false
     
-    init(type: objectType, index: Int = 0){
+    init(type: objectType, index: Int = 0) {
         self.myType = type
         self.index = index
         let texture: SKTexture
@@ -53,19 +53,19 @@ class MapObject: SKSpriteNode {
         
         self.name = "\(self.index)_\(self.myType)"
         
-        if (self.myType != .Empty){
+        if (self.myType != .Empty) {
             self.physicsBody = SKPhysicsBody(rectangleOf: self.mySize)
             self.physicsBody?.affectedByGravity = false
             self.physicsBody?.isDynamic = false
             self.zPosition = 1
         }
         
-        if self.myType == .Empty{
+        if self.myType == .Empty {
             self.isHidden = true
         }
     }
     
-    func getType()->objectType{
+    func getType()->objectType {
         return self.myType
     }
     

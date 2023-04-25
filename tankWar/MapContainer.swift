@@ -11,7 +11,7 @@ import SpriteKit
 class MapContainer: SKNode {
     var map = [[MapObject]]()
     
-    func onInit(mapName: String){
+    func onInit(mapName: String) {
         var content = ""
         if let path = Bundle.main.path(forResource: mapName, ofType: "txt",
                                        inDirectory: "maps"){
@@ -24,7 +24,7 @@ class MapContainer: SKNode {
             }
         }
         content = content.replacingOccurrences(of: "\n", with: "")
-        for i in 0..<11{
+        for i in 0..<11 {
             var temp = [MapObject]()
             for j in 0..<11{
                 let object: MapObject

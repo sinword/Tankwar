@@ -37,10 +37,10 @@ class Tank: SKSpriteNode {
         self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.affectedByGravity = false
         
-        if name == "p1"{
+        if name == "p1" {
             self.myStick.substrate.color = UIColor.blue
         }
-        else if name == "p2"{
+        else if name == "p2" {
             self.myStick.substrate.color = UIColor.red
             self.zRotation = .pi
         }
@@ -54,15 +54,34 @@ class Tank: SKSpriteNode {
         }
     }
     
-    required init?(coder aDecoder: NSCoder){
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder: ) has not been implemented ")
     }
     
-    func getName()->String{
+    func getName()->String {
         return self.name!
     }
     
     func getStick()->AnalogJoystick{
         return self.myStick
+    }
+    
+    func tankFire(tankPosition: CGPoint) {
+        // var bounce : Int = 0
+        let cannonSpeed : Float = 200
+        let cannonBall = SKSpriteNode(texture: SKTexture(imageNamed: "cannonball"))
+        cannonBall.size = CGSize(width: 20, height: 20)
+        let direction = self.myStick.getVelocity()
+        let velocity = CGVector(dx: direction.x * CGFloat(cannonSpeed), dy: direction.y * CGFloat(cannonSpeed))
+        print("velocity: \(velocity)")
+        cannonBall.physicsBody?.applyImpulse(velocity, at: tankPosition)
+        cannonBall.physicsBody = SKPhysicsBody(circleOfRadius: 10)
+        cannonBall.physicsBody?.affectedByGravity = false
+        cannonBall.physicsBody?.isDynamic = true
+        cannonBall.physicsBody?.usesPreciseCollisionDetection = true
+        // cannonBall.physicsBody?.velocity = CGVector(dx: 0, dy: 100)
+        cannonBall.physicsBody?.categoryBitMask = 0x1 << 1
+        cannonBall.physicsBody?.collisionBitMask = 0b1 << 2
+        self.addChild(cannonBall)
     }
 }

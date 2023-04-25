@@ -26,7 +26,7 @@ class mainScene: SKScene {
     
     var playersTank = [Tank]()
     
-    func createScene(){
+    func createScene() {
         let mainbkg = SKSpriteNode(imageNamed: "mainBkg")
         mainbkg.size.width = self.size.width
         mainbkg.size.height = self.size.height
@@ -50,8 +50,6 @@ class mainScene: SKScene {
         p2tank.abilityButton.position = CGPoint(x: self.frame.midX, y: self.frame.minY + self.frame.midY / 3)
         
         
-        let cannon = SKSpriteNode(texture: SKTexture(imageNamed: "cannon ball"))
-        
         //應該可以優化
         self.addChild(mainbkg)
         self.addChild(p1tank)
@@ -69,20 +67,24 @@ class mainScene: SKScene {
         let touchedNode = self.nodes(at: posInScene).first!
     
         if let name = touchedNode.name{
-            if name == "1 fire"{
+            if name == "1 fire" {
                 print("p1 fire")
+                playersTank[0].tankFire(tankPosition: playersTank[0].position)
             }
-            else if name == "1 ability"{
+            else if name == "1 ability" {
                 print("p1 ability")
             }
-            else if name == "2 fire"{
+            else if name == "2 fire" {
                 print("p2 fire")
+                // touchedNode.tankFire(playersTank[0])
             }
-            else if name == "2 ability"{
+            else if name == "2 ability" {
                 print("p2 ability")
             }
         }
         
         super.touchesBegan(touches, with: event)
     }
+    
+    
 }

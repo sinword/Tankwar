@@ -10,6 +10,7 @@ import SpriteKit
 
 class Tank: SKSpriteNode {
     let mySize = CGSize(width: 25, height: 25)
+    var myCode = 0
     var myStick = AnalogJoystick(diameter: 50, colors: (UIColor.blue, UIColor.black))
     var fireButton: attackButton
     var abilityButton: attackButton
@@ -20,14 +21,15 @@ class Tank: SKSpriteNode {
         
         if name == "p1"{
             texture = SKTexture(imageNamed: "p1Tank")
-            self.fireButton = attackButton(name: "fire", owner: 1)
-            self.abilityButton = attackButton(name: "ability", owner: 1)
+            self.myCode = 1
         }
         else{
             texture = SKTexture(imageNamed: "p2Tank")
-            self.fireButton = attackButton(name: "fire", owner: 2)
-            self.abilityButton = attackButton(name: "ability", owner: 2)
+            self.myCode = 2
         }
+        self.fireButton = attackButton(name: "fire", owner: self.myCode)
+        self.abilityButton = attackButton(name: "ability", owner: self.myCode)
+        
         super.init(texture: texture, color: UIColor.clear, size: mySize)
         
         self.name = name
@@ -36,6 +38,8 @@ class Tank: SKSpriteNode {
         self.physicsBody?.restitution = 1
         self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.categoryBitMask = 0x1 << 1
+        self.physicsBody?.collisionBitMask = 0x1 << 2
         
         if name == "p1" {
             self.myStick.substrate.color = UIColor.blue
@@ -66,22 +70,14 @@ class Tank: SKSpriteNode {
         return self.myStick
     }
     
-    func tankFire(tankPosition: CGPoint) {
-        // var bounce : Int = 0
-        let cannonSpeed : Float = 200
-        let cannonBall = SKSpriteNode(texture: SKTexture(imageNamed: "cannonball"))
-        cannonBall.size = CGSize(width: 20, height: 20)
-        let direction = self.myStick.getVelocity()
-        let velocity = CGVector(dx: direction.x * CGFloat(cannonSpeed), dy: direction.y * CGFloat(cannonSpeed))
-        print("velocity: \(velocity)")
-        cannonBall.physicsBody?.applyImpulse(velocity, at: tankPosition)
-        cannonBall.physicsBody = SKPhysicsBody(circleOfRadius: 10)
-        cannonBall.physicsBody?.affectedByGravity = false
-        cannonBall.physicsBody?.isDynamic = true
-        cannonBall.physicsBody?.usesPreciseCollisionDetection = true
-        // cannonBall.physicsBody?.velocity = CGVector(dx: 0, dy: 100)
-        cannonBall.physicsBody?.categoryBitMask = 0x1 << 1
-        cannonBall.physicsBody?.collisionBitMask = 0b1 << 2
-        self.addChild(cannonBall)
+    func tankAtk(ball: CannonBall, atkType: String) {
+        ball.position = self.position
+        ball.zRotation = self.zRotation
+        if atkType == "fire"{
+            ball.fire()
+        }
+        else{
+            ball.ability()
+        }
     }
 }

@@ -69,16 +69,26 @@ class mainScene: SKScene {
         if let name = touchedNode.name{
             if name == "1 fire" {
                 print("p1 fire")
-                playersTank[0].tankFire(tankPosition: playersTank[0].position)
+                let ball = CannonBall(type: "fire", owner: 1)
+                self.playersTank[0].tankAtk(ball: ball, atkType: "fire")
+                self.addChild(ball)
             }
             else if name == "1 ability" {
+                let ball = CannonBall(type: "ability", owner: 1)
+                self.playersTank[0].tankAtk(ball: ball, atkType: "ability")
+                self.addChild(ball)
                 print("p1 ability")
             }
             else if name == "2 fire" {
                 print("p2 fire")
-                // touchedNode.tankFire(playersTank[0])
+                let ball = CannonBall(type: "fire", owner: 2)
+                self.playersTank[1].tankAtk(ball: ball, atkType: "fire")
+                self.addChild(ball)
             }
             else if name == "2 ability" {
+                let ball = CannonBall(type: "ability", owner: 1)
+                self.playersTank[1].tankAtk(ball: ball, atkType: "ability")
+                self.addChild(ball)
                 print("p2 ability")
             }
         }

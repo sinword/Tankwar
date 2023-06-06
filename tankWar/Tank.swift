@@ -15,6 +15,8 @@ class Tank: SKSpriteNode {
     var fireButton: attackButton
     var abilityButton: attackButton
     var lifePoint = 10
+    var healthBar = SKSpriteNode(color: UIColor.red, size: CGSize(width: 40, height: 10))
+    var healthBarBk = SKSpriteNode(color: UIColor.black, size: CGSize(width: 40, height: 10))
     
     init(name: String){
         let texture: SKTexture
@@ -38,8 +40,16 @@ class Tank: SKSpriteNode {
         self.physicsBody?.restitution = 1
         self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.affectedByGravity = false
+        
         self.physicsBody?.categoryBitMask = 0x1 << 1
-        self.physicsBody?.collisionBitMask = 0x1 << 2
+        self.physicsBody?.collisionBitMask =  0x1 << 1 | 0x1 << 3 | 0x1 << 4
+        
+        self.healthBar.xScale = Double(self.lifePoint) / 10
+        self.healthBar.anchorPoint = CGPointMake(0.0, 0.5)
+        self.healthBar.position = CGPoint(x: -20, y: -20)
+        self.healthBarBk.position = CGPoint(x: 0, y: -20)
+        self.addChild(self.healthBarBk)
+        self.addChild(self.healthBar)
         
         if name == "p1" {
             self.myStick.substrate.color = UIColor.blue
@@ -57,6 +67,11 @@ class Tank: SKSpriteNode {
             self.position = pos
         }
     }
+
+    
+    func updateHealthBar(){
+        self.healthBar.xScale = Double(self.lifePoint) / 10
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder: ) has not been implemented ")
@@ -70,7 +85,7 @@ class Tank: SKSpriteNode {
         return self.myStick
     }
     
-    func tankAtk(ball: CannonBall, atkType: String) {
+    func tankAtk(ball: CannonBall, atkType: String){
         ball.position = self.position
         ball.zRotation = self.zRotation
         if atkType == "fire"{
@@ -79,5 +94,11 @@ class Tank: SKSpriteNode {
         else{
             ball.ability()
         }
+    }
+    
+    func getDamaged(){
+        self.lifePoint -= 1
+        print(self.lifePoint)
+        self.updateHealthBar()
     }
 }

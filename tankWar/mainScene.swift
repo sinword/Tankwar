@@ -9,7 +9,7 @@ import UIKit
 import SpriteKit
 import GameController
 
-class mainScene: SKScene {
+class mainScene: SKScene, SKPhysicsContactDelegate {
     let mContainer = MapContainer()
     
     private var _virtualController: Any?
@@ -22,6 +22,7 @@ class mainScene: SKScene {
         mContainer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         addChild(mContainer)
         mContainer.onInit(mapName: "map1")
+        physicsWorld.contactDelegate = self
     }
     
     var playersTank = [Tank]()
@@ -86,7 +87,7 @@ class mainScene: SKScene {
                 self.addChild(ball)
             }
             else if name == "2 ability" {
-                let ball = CannonBall(type: "ability", owner: 1)
+                let ball = CannonBall(type: "ability", owner: 2)
                 self.playersTank[1].tankAtk(ball: ball, atkType: "ability")
                 self.addChild(ball)
                 print("p2 ability")
@@ -96,5 +97,57 @@ class mainScene: SKScene {
         super.touchesBegan(touches, with: event)
     }
     
+    func handleAbility(_ pos: CGPoint){
+        print(pos)
+    }
+    
+    // View of cannon
+    func didBegin(_ contact: SKPhysicsContact) {
+        // Body A -> map object / tank
+        // Body B -> bullet
+        if let firstBody = contact.bodyA.node as? MapObject{
+            if let bullet = contact.bodyB.node as? CannonBall{
+                switch firstBody.myType {
+                    case .Wall:
+                    if bullet.myType == "fire"{
+                        bullet.doCollision()
+                        firstBody.getDamaged()
+                    }
+                    
+                    case .Brick:
+                    if bullet.myType == "fire"{
+                        bullet.doCollision()
+                        firstBody.getDamaged()
+                    }
+                    
+                    case .Box:
+                    if bullet.myType == "fire"{
+                        bullet.run(SKAction.removeFromParent())
+                        firstBody.getDamaged()
+                    }
+                    
+                    case .Brush:
+                    if bullet.myType == "fire"{
+                        bullet.run(SKAction.removeFromParent())
+                    }
+                    
+                    case .River:
+                    break
+                    
+                    case .Empty:
+                    break
+                
+                }
+            }
+        }
+        else if let firstBody = contact.bodyA.node as? Tank{
+            if let bullet = contact.bodyB.node as? CannonBall{
+                if bullet.owner != firstBody.myCode{
+                    firstBody.getDamaged()
+                    bullet.run(SKAction.removeFromParent())
+                }
+            }
+        }
+    }
     
 }

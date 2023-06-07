@@ -9,7 +9,7 @@ import UIKit
 import SpriteKit
 
 class AttackButton: SKSpriteNode {
-    let mySize = CGSize(width: 40, height: 40)
+    let mySize = CGSize(width: 60, height: 60)
     var owner: Int
     
     init(name: String, owner: Int){

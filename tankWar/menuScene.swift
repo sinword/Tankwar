@@ -75,6 +75,7 @@ class menuScene: SKScene{
             
             labelNode?.run(moveseq, completion: {
                 let mainScene = mainScene(size: self.size)
+                mainScene.levelSel = name
                 let doors = SKTransition.doorsOpenVertical(withDuration: 1)
                 self.view?.presentScene(mainScene, transition: doors)
             })

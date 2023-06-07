@@ -24,13 +24,13 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         addChild(mContainer)
         switch levelSel{
         case "level 1":
-            mContainer.onInit(mapName: "map1")
+            mContainer.onInit(mapName: "map1", size: self.frame.size)
         case "level 2":
-            mContainer.onInit(mapName: "map2")
+            mContainer.onInit(mapName: "map2", size: self.frame.size)
         case "level 3":
-            mContainer.onInit(mapName: "map3")
+            mContainer.onInit(mapName: "map3", size: self.frame.size)
         default:
-            mContainer.onInit(mapName: "map1")
+            mContainer.onInit(mapName: "map1", size: self.frame.size)
         }
         
         physicsWorld.contactDelegate = self
@@ -64,14 +64,15 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         
         //應該可以優化
         self.addChild(mainbkg)
-        self.addChild(p1tank)
-        self.addChild(p2tank)
         self.addChild(p1tank.myStick)
         self.addChild(p2tank.myStick)
         self.addChild(p1tank.fireButton)
         self.addChild(p1tank.abilityButton)
         self.addChild(p2tank.fireButton)
         self.addChild(p2tank.abilityButton)
+        self.addChild(p1tank)
+        self.addChild(p2tank)
+
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
@@ -118,6 +119,7 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if winner != "Empty"{
+            self.removeAllChildren()
             let gameOverScene = gameOverScene(size: self.size)
             gameOverScene.winner = winner
             view?.presentScene(gameOverScene)
@@ -167,6 +169,15 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
             if let bullet = contact.bodyB.node as? CannonBall{
                 if bullet.owner != firstBody.myCode{
                     firstBody.getDamaged()
+                    bullet.run(SKAction.removeFromParent())
+                }
+            }
+        }
+        
+        else if let firstBody = contact.bodyA.node as? CannonBall{
+            if let bullet = contact.bodyB.node as? CannonBall{
+                if bullet.owner != firstBody.owner && bullet.myType == firstBody.myType{
+                    firstBody.run(SKAction.removeFromParent())
                     bullet.run(SKAction.removeFromParent())
                 }
             }

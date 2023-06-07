@@ -11,7 +11,7 @@ import SpriteKit
 class Tank: SKSpriteNode {
     let mySize = CGSize(width: 25, height: 25)
     var myCode = 0
-    var myStick = AnalogJoystick(diameter: 50, colors: (UIColor.blue, UIColor.black))
+    var myStick = AnalogJoystick(diameter: 60, colors: (UIColor.blue, UIColor.black))
     var fireButton: AttackButton
     var abilityButton: AttackButton
     var lifePoint = 10
@@ -48,6 +48,8 @@ class Tank: SKSpriteNode {
         self.healthBar.anchorPoint = CGPointMake(0.0, 0.5)
         self.healthBar.position = CGPoint(x: -20, y: -20)
         self.healthBarBk.position = CGPoint(x: 0, y: -20)
+        self.healthBar.zPosition = 5
+        self.healthBarBk.zPosition = 4
         self.addChild(self.healthBarBk)
         self.addChild(self.healthBar)
         
@@ -59,15 +61,16 @@ class Tank: SKSpriteNode {
             self.zRotation = .pi
         }
         
-        self.myStick.trackingHandler = { [unowned self] data in
-            var pos = self.position
-            pos.x = pos.x + data.velocity.x * 0.075
-            pos.y = pos.y + data.velocity.y * 0.075
-            self.zRotation = .pi + data.angular
-            if let boundary = self.parent?.frame{
-                if pos.x >= boundary.minX && pos.x <= boundary.maxX{
-                    if pos.y >= boundary.minY && pos.y <= boundary.maxY{
-                        self.position = pos
+        self.myStick.trackingHandler = { [weak self] data in
+            if var pos = self?.position{
+                pos.x = pos.x + data.velocity.x * 0.075
+                pos.y = pos.y + data.velocity.y * 0.075
+                self?.zRotation = .pi + data.angular
+                if let boundary = self?.parent?.frame{
+                    if pos.x >= boundary.minX && pos.x <= boundary.maxX{
+                        if pos.y >= boundary.minY && pos.y <= boundary.maxY{
+                            self?.position = pos
+                        }
                     }
                 }
             }

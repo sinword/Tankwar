@@ -18,7 +18,7 @@ enum objectType : Int {
 }
 
 class MapObject: SKSpriteNode {
-    let mySize = CGSize(width: 35, height: 35)
+    static var mySize = CGSize(width: 35, height: 35)
     var myType = objectType.Wall
     var durability = -1
     var index = 0
@@ -49,7 +49,7 @@ class MapObject: SKSpriteNode {
             texture = SKTexture()
             break
         }
-        super.init(texture: texture, color: UIColor.clear, size: self.mySize)
+        super.init(texture: texture, color: UIColor.clear, size: MapObject.mySize)
         
         self.name = "\(self.myType)"//"\(self.index)_\(self.myType)"
         
@@ -58,7 +58,7 @@ class MapObject: SKSpriteNode {
         }
         
         else if self.myType == .River{
-            self.physicsBody = SKPhysicsBody(rectangleOf: self.mySize)
+            self.physicsBody = SKPhysicsBody(rectangleOf: MapObject.mySize)
             self.physicsBody?.affectedByGravity = false
             self.physicsBody?.isDynamic = false
             self.physicsBody?.categoryBitMask = 0x1 << 4
@@ -66,7 +66,7 @@ class MapObject: SKSpriteNode {
             self.zPosition = 0
         }
         else{
-            self.physicsBody = SKPhysicsBody(rectangleOf: self.mySize)
+            self.physicsBody = SKPhysicsBody(rectangleOf: MapObject.mySize)
             self.physicsBody?.affectedByGravity = false
             self.physicsBody?.isDynamic = false
             self.physicsBody?.categoryBitMask = 0x1 << 3

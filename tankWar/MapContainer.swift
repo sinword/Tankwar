@@ -11,7 +11,8 @@ import SpriteKit
 class MapContainer: SKNode {
     var map = [[MapObject]]()
     
-    func onInit(mapName: String) {
+    func onInit(mapName: String, size: CGSize) {
+        MapObject.mySize = CGSize(width: size.width / 11.0, height: size.width / 11.0)
         var content = ""
         if let path = Bundle.main.path(forResource: mapName, ofType: "txt",
                                        inDirectory: "maps"){
@@ -46,7 +47,7 @@ class MapContainer: SKNode {
                 }
                 
                 //For position cal
-                let width = Int(object.mySize.width)
+                let width = Int(MapObject.mySize.width)
                 let x = j * width - (10 * width) / 2
                 let y = i * width - (10 * width) / 2
                 object.position = CGPoint(x: CGFloat(x), y: CGFloat(y))

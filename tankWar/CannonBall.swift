@@ -40,11 +40,11 @@ class CannonBall: SKSpriteNode {
         //self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.affectedByGravity = false
         //self.physicsBody?.isDynamic = true
-
         self.physicsBody?.categoryBitMask = 0x1 << 2
-        self.physicsBody?.contactTestBitMask = 0x1 << 1 | 0x1 << 3
-        self.physicsBody?.collisionBitMask = 0x1 << 2
-        //self.physicsBody?.mass = 0.00000000000001
+        if (self.myType == "fire") {
+            self.physicsBody?.contactTestBitMask = 0x1 << 1 | 0x1 << 2 | 0x1 << 3
+        }
+        self.physicsBody?.collisionBitMask = 0x1 << 9
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -81,14 +81,17 @@ class CannonBall: SKSpriteNode {
         let remove = SKAction.removeFromParent()
         let moveAction = SKAction.sequence([zoomin, move, zoomout])
         self.run(moveAction){
-            if let node = self.parent?.nodes(at: self.position)[1] as? MapObject{
+            if let node = self.parent?.nodes(at: self.position).last as? MapObject{
                 node.getDamaged()
             }
-            else if let node = self.parent?.nodes(at: self.position)[1] as? Tank{
-                node.getDamaged()
+            else if let node = self.parent?.nodes(at: self.position).last as? Tank{
+                if self.owner != node.myCode{
+                    node.getDamaged()
+                }
             }
             self.run(remove)
         }
+        
     }
     
     

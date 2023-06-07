@@ -12,8 +12,8 @@ class Tank: SKSpriteNode {
     let mySize = CGSize(width: 25, height: 25)
     var myCode = 0
     var myStick = AnalogJoystick(diameter: 60, colors: (UIColor.blue, UIColor.black))
-    var fireButton: AttackButton
-    var abilityButton: AttackButton
+    var fireButton: JoystickButton
+    var abilityButton: JoystickButton
     var lifePoint = 10
     var healthBar = SKSpriteNode(color: UIColor.red, size: CGSize(width: 40, height: 10))
     var healthBarBk = SKSpriteNode(color: UIColor.black, size: CGSize(width: 40, height: 10))
@@ -29,8 +29,8 @@ class Tank: SKSpriteNode {
             texture = SKTexture(imageNamed: "p2Tank")
             self.myCode = 2
         }
-        self.fireButton = AttackButton(name: "fire", owner: self.myCode)
-        self.abilityButton = AttackButton(name: "ability", owner: self.myCode)
+        self.fireButton = JoystickButton(name: "fire", owner: self.myCode)
+        self.abilityButton = JoystickButton(name: "ability", owner: self.myCode)
 
         super.init(texture: texture, color: UIColor.clear, size: mySize)
         

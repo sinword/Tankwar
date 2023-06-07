@@ -8,7 +8,7 @@
 import UIKit
 import SpriteKit
 
-class AttackButton: SKSpriteNode {
+class JoystickButton: SKSpriteNode {
     let mySize = CGSize(width: 40, height: 40)
     var owner: Int
     

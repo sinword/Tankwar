@@ -12,8 +12,8 @@ class Tank: SKSpriteNode {
     let mySize = CGSize(width: 25, height: 25)
     var myCode = 0
     var myStick = AnalogJoystick(diameter: 50, colors: (UIColor.blue, UIColor.black))
-    var fireButton: attackButton
-    var abilityButton: attackButton
+    var fireButton: AttackButton
+    var abilityButton: AttackButton
     var lifePoint = 10
     var healthBar = SKSpriteNode(color: UIColor.red, size: CGSize(width: 40, height: 10))
     var healthBarBk = SKSpriteNode(color: UIColor.black, size: CGSize(width: 40, height: 10))
@@ -29,9 +29,9 @@ class Tank: SKSpriteNode {
             texture = SKTexture(imageNamed: "p2Tank")
             self.myCode = 2
         }
-        self.fireButton = attackButton(name: "fire", owner: self.myCode)
-        self.abilityButton = attackButton(name: "ability", owner: self.myCode)
-        
+        self.fireButton = AttackButton(name: "fire", owner: self.myCode)
+        self.abilityButton = AttackButton(name: "ability", owner: self.myCode)
+
         super.init(texture: texture, color: UIColor.clear, size: mySize)
         
         self.name = name
@@ -64,7 +64,13 @@ class Tank: SKSpriteNode {
             pos.x = pos.x + data.velocity.x * 0.075
             pos.y = pos.y + data.velocity.y * 0.075
             self.zRotation = .pi + data.angular
-            self.position = pos
+            if let boundary = self.parent?.frame{
+                if pos.x >= boundary.minX && pos.x <= boundary.maxX{
+                    if pos.y >= boundary.minY && pos.y <= boundary.maxY{
+                        self.position = pos
+                    }
+                }
+            }
         }
     }
 
@@ -98,7 +104,6 @@ class Tank: SKSpriteNode {
     
     func getDamaged(){
         self.lifePoint -= 1
-        print(self.lifePoint)
         self.updateHealthBar()
     }
 }

@@ -9,10 +9,10 @@ import UIKit
 import SpriteKit
 
 class CannonBall: SKSpriteNode {
-    let mySize = CGSize(width: 12, height: 12)
+    let mySize = CGSize(width: 20, height: 20)
     let travelDistance = CGFloat(2000)
     let wallDistance = CGFloat(60)
-    let secondOfSpeed = 5.0
+    let secondOfSpeed = 8.0
     var isBounced = false
     var owner: Int
     var myType: String
@@ -70,14 +70,14 @@ class CannonBall: SKSpriteNode {
     
     
     func ability(){
-        let zoomout = SKAction.scale(by: 0.5, duration: 0.1)
+        let zoomout = SKAction.scale(by: 0.5, duration: 0.3)
         let move = SKAction.move(
             to: CGPointMake(
                 self.wallDistance * cos(self.zRotation - .pi / 2) + self.position.x,
                 self.wallDistance * sin(self.zRotation - .pi / 2) + self.position.y
                ),
            duration: 1)
-        let zoomin = SKAction.scale(by: 2, duration: 0.1)
+        let zoomin = SKAction.scale(by: 2, duration: 0.2)
         let remove = SKAction.removeFromParent()
         let moveAction = SKAction.sequence([zoomin, move, zoomout])
         self.run(moveAction){

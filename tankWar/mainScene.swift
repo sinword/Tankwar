@@ -11,6 +11,7 @@ import GameController
 
 class mainScene: SKScene, SKPhysicsContactDelegate {
     let mContainer = MapContainer()
+    var levelSel = "level 1"
     
     private var _virtualController: Any?
     public var virtualController: GCVirtualController? {
@@ -21,7 +22,17 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         createScene()
         mContainer.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         addChild(mContainer)
-        mContainer.onInit(mapName: "map1")
+        switch levelSel{
+        case "level 1":
+            mContainer.onInit(mapName: "map1")
+        case "level 2":
+            mContainer.onInit(mapName: "map2")
+        case "level 3":
+            mContainer.onInit(mapName: "map3")
+        default:
+            mContainer.onInit(mapName: "map1")
+        }
+        
         physicsWorld.contactDelegate = self
     }
     
@@ -35,12 +46,12 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         mainbkg.zPosition = -1
         
         let p1tank = Tank(name: "p1")
-        p1tank.position = CGPoint(x: self.frame.midX, y: self.frame.maxY + self.frame.midY / 3 - self.frame.midY)
+        p1tank.position = CGPoint(x: self.frame.midX, y: self.frame.maxY + self.frame.midY / 2 - self.frame.midY)
         p1tank.myStick.position = CGPoint(x: self.frame.minX + self.frame.midX / 2, y: self.frame.maxY - self.frame.midY / 3)
         playersTank.append(p1tank)
         
         let p2tank = Tank(name: "p2")
-        p2tank.position = CGPoint(x: self.frame.midX, y: self.frame.minY - self.frame.midY / 3 + self.frame.midY)
+        p2tank.position = CGPoint(x: self.frame.midX, y: self.frame.minY - self.frame.midY / 2 + self.frame.midY)
         p2tank.myStick.position = CGPoint(x: self.frame.midX + self.frame.midX / 2, y: self.frame.minY + self.frame.midY / 3)
         playersTank.append(p2tank)
         
@@ -97,8 +108,20 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         super.touchesBegan(touches, with: event)
     }
     
-    func handleAbility(_ pos: CGPoint){
-        print(pos)
+    func handleWin(){
+        var winner = "Empty"
+        if self.playersTank[0].lifePoint == 0{
+            winner = "Player 1"
+        }
+        else if self.playersTank[1].lifePoint == 0{
+            winner = "Player 2"
+        }
+        
+        if winner != "Empty"{
+            let gameOverScene = gameOverScene(size: self.size)
+            gameOverScene.winner = winner
+            view?.presentScene(gameOverScene)
+        }
     }
     
     // View of cannon
@@ -148,6 +171,7 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        self.handleWin()
     }
     
 }

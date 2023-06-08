@@ -12,6 +12,9 @@ import GameController
 class mainScene: SKScene, SKPhysicsContactDelegate {
     let mContainer = MapContainer()
     var levelSel = "level 1"
+    let abilitySound = SKAction.playSoundFileNamed("./musics/tank_ability.wav", waitForCompletion: false)
+    let fireSound = SKAction.playSoundFileNamed("./musics/tank_attack.wav", waitForCompletion: false)
+    
     
     private var _virtualController: Any?
     public var virtualController: GCVirtualController? {
@@ -34,6 +37,10 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         }
         
         physicsWorld.contactDelegate = self
+        
+        let backgroundSound = SKAudioNode(fileNamed: "./musics/the-epic-trailer.mp3")
+        self.addChild(backgroundSound)
+        backgroundSound.run(SKAction.play())
     }
     
     var playersTank = [Tank]()
@@ -85,24 +92,28 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
                 let ball = CannonBall(type: "fire", owner: 1)
                 self.playersTank[0].tankAtk(ball: ball, atkType: "fire")
                 self.addChild(ball)
+                self.run(fireSound)
             }
             else if name == "1 ability" {
                 let ball = CannonBall(type: "ability", owner: 1)
                 self.playersTank[0].tankAtk(ball: ball, atkType: "ability")
                 self.addChild(ball)
                 print("p1 ability")
+                self.run(abilitySound)
             }
             else if name == "2 fire" {
                 print("p2 fire")
                 let ball = CannonBall(type: "fire", owner: 2)
                 self.playersTank[1].tankAtk(ball: ball, atkType: "fire")
                 self.addChild(ball)
+                self.run(fireSound)
             }
             else if name == "2 ability" {
                 let ball = CannonBall(type: "ability", owner: 2)
                 self.playersTank[1].tankAtk(ball: ball, atkType: "ability")
                 self.addChild(ball)
                 print("p2 ability")
+                self.run(abilitySound)
             }
         }
         

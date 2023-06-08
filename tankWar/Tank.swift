@@ -11,7 +11,7 @@ import SpriteKit
 class Tank: SKSpriteNode {
     let mySize = CGSize(width: 25, height: 25)
     var myCode = 0
-    var myStick = AnalogJoystick(diameter: 60, colors: (UIColor.blue, UIColor.black))
+    var myStick = AnalogJoystick(diameter: 80, colors: (UIColor.blue, UIColor.black))
     var fireButton: JoystickButton
     var abilityButton: JoystickButton
     var lifePoint = 10

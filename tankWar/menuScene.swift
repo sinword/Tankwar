@@ -49,6 +49,10 @@ class menuScene: SKScene{
         
         self.addChild(bkg)
         self.addChild(helloLbl)
+        
+        let backgroundSound = SKAudioNode(fileNamed: "./musics/cyber-war.mp3")
+        self.addChild(backgroundSound)
+        backgroundSound.run(SKAction.play())
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

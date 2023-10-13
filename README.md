@@ -1,2 +1,2 @@
 # tankWar
-IOS final report
+- mini game on IOS platform

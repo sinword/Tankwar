@@ -17,10 +17,12 @@ class Tank: SKSpriteNode {
     var lifePoint = 10
     var healthBar = SKSpriteNode(color: UIColor.red, size: CGSize(width: 40, height: 10))
     var healthBarBk = SKSpriteNode(color: UIColor.black, size: CGSize(width: 40, height: 10))
+    var mainScene: mainScene
     
-    init(name: String){
+    
+    init(name: String, mainScene: mainScene){
         let texture: SKTexture
-        
+        self.mainScene = mainScene
         if name == "p1"{
             texture = SKTexture(imageNamed: "p1Tank")
             self.myCode = 1
@@ -108,5 +110,6 @@ class Tank: SKSpriteNode {
     func getDamaged(){
         self.lifePoint -= 1
         self.updateHealthBar()
+        self.mainScene.handleWin()
     }
 }

@@ -81,12 +81,21 @@ class CannonBall: SKSpriteNode {
         let remove = SKAction.removeFromParent()
         let moveAction = SKAction.sequence([zoomin, move, zoomout])
         self.run(moveAction){
-            if let node = self.parent?.nodes(at: self.position).last as? MapObject{
-                node.getDamaged()
-            }
-            else if let node = self.parent?.nodes(at: self.position).last as? Tank{
-                if self.owner != node.myCode{
-                    node.getDamaged()
+            if let nodes = self.parent?.nodes(at: self.position){
+                for node in nodes{
+                    if let curr_node = node as? MapObject{
+                        curr_node.getDamaged()
+                    }
+                    else if let curr_node = node as? Tank{
+                        if self.owner != curr_node.myCode{
+                            curr_node.getDamaged()
+                        }
+                    }
+                    else if let curr_node = node as? CannonBall{
+                        if self.owner != curr_node.owner{
+                            curr_node.run(SKAction.removeFromParent())
+                        }
+                    }
                 }
             }
             self.run(remove)

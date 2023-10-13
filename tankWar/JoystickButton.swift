@@ -11,6 +11,7 @@ import SpriteKit
 class JoystickButton: SKSpriteNode {
     let mySize = CGSize(width: 60, height: 60)
     var owner: Int
+    var isReady = true
     
     init(name: String, owner: Int){
         let texture: SKTexture

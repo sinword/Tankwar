@@ -52,12 +52,12 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
         mainbkg.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         mainbkg.zPosition = -1
         
-        let p1tank = Tank(name: "p1")
+        let p1tank = Tank(name: "p1", mainScene: self)
         p1tank.position = CGPoint(x: self.frame.midX, y: self.frame.maxY + self.frame.midY / 2 - self.frame.midY)
         p1tank.myStick.position = CGPoint(x: self.frame.minX + self.frame.midX / 2, y: self.frame.maxY - self.frame.midY / 3)
         playersTank.append(p1tank)
         
-        let p2tank = Tank(name: "p2")
+        let p2tank = Tank(name: "p2", mainScene: self)
         p2tank.position = CGPoint(x: self.frame.midX, y: self.frame.minY - self.frame.midY / 2 + self.frame.midY)
         p2tank.myStick.position = CGPoint(x: self.frame.midX + self.frame.midX / 2, y: self.frame.minY + self.frame.midY / 3)
         playersTank.append(p2tank)
@@ -88,35 +88,74 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
     
         if let name = touchedNode.name{
             if name == "1 fire" {
-                print("p1 fire")
-                let ball = CannonBall(type: "fire", owner: 1)
-                self.playersTank[0].tankAtk(ball: ball, atkType: "fire")
-                self.addChild(ball)
-                self.run(fireSound)
+                if let node = touchedNode as? JoystickButton{
+                    print("p1 fire")
+                    if node.isReady{
+                        let ball = CannonBall(type: "fire", owner: 1)
+                        self.playersTank[0].tankAtk(ball: ball, atkType: "fire")
+                        self.addChild(ball)
+                        self.run(self.fireSound)
+                        node.isReady = false
+                        node.run(SKAction.setTexture(SKTexture(imageNamed: "Fire_cooldown")))
+                        node.run(SKAction.wait(forDuration: 1)){
+                            node.run(SKAction.setTexture(SKTexture(imageNamed: "fire")))
+                            node.isReady = true
+                        }
+                    }
+                }
             }
             else if name == "1 ability" {
-                let ball = CannonBall(type: "ability", owner: 1)
-                self.playersTank[0].tankAtk(ball: ball, atkType: "ability")
-                self.addChild(ball)
                 print("p1 ability")
-                self.run(abilitySound)
+                if let node = touchedNode as? JoystickButton{
+                    if node.isReady{
+                        let ball = CannonBall(type: "ability", owner: 1)
+                        self.playersTank[0].tankAtk(ball: ball, atkType: "ability")
+                        self.addChild(ball)
+                        self.run(self.fireSound)
+                        node.isReady = false
+                        //node.run(SKAction.setTexture(SKTexture(imageNamed: "Ability_cooldown")))
+                        node.run(SKAction.wait(forDuration: 1.5)){
+                            //node.run(SKAction.setTexture(SKTexture(imageNamed: "ability")))
+                            node.isReady = true
+                        }
+                    }
+                }
             }
             else if name == "2 fire" {
                 print("p2 fire")
-                let ball = CannonBall(type: "fire", owner: 2)
-                self.playersTank[1].tankAtk(ball: ball, atkType: "fire")
-                self.addChild(ball)
-                self.run(fireSound)
+                if let node = touchedNode as? JoystickButton{
+                    if node.isReady{
+                        let ball = CannonBall(type: "fire", owner: 2)
+                        self.playersTank[1].tankAtk(ball: ball, atkType: "fire")
+                        self.addChild(ball)
+                        self.run(self.fireSound)
+                        node.isReady = false
+                        node.run(SKAction.setTexture(SKTexture(imageNamed: "Fire_cooldown")))
+                        node.run(SKAction.wait(forDuration: 1)){
+                            node.run(SKAction.setTexture(SKTexture(imageNamed: "fire")))
+                            node.isReady = true
+                        }
+                    }
+                }
             }
             else if name == "2 ability" {
-                let ball = CannonBall(type: "ability", owner: 2)
-                self.playersTank[1].tankAtk(ball: ball, atkType: "ability")
-                self.addChild(ball)
-                print("p2 ability")
-                self.run(abilitySound)
+                if let node = touchedNode as? JoystickButton{
+                    if node.isReady{
+                        let ball = CannonBall(type: "ability", owner: 2)
+                        self.playersTank[1].tankAtk(ball: ball, atkType: "ability")
+                        self.addChild(ball)
+                        self.run(self.fireSound)
+                        node.isReady = false
+                        //node.run(SKAction.setTexture(SKTexture(imageNamed: "Ability_cooldown")))
+                        node.run(SKAction.wait(forDuration: 1.5)){
+                            //node.run(SKAction.setTexture(SKTexture(imageNamed: "ability")))
+                            node.isReady = true
+                        }
+                    }
+                }
             }
+                
         }
-        
         super.touchesBegan(touches, with: event)
     }
     
@@ -193,7 +232,7 @@ class mainScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-        self.handleWin()
+        //self.handleWin()
     }
     
 }
